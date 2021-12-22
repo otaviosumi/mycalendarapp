@@ -7,7 +7,7 @@ import Cadernos from "./pages/Cadernos";
 import CentrodeCusto from "./pages/CentrodeCusto";
 import Clientes from "./pages/Clientes";
 import ContasContaveis from "./pages/ContasContabeis";
-import Dashboard from "./pages/Dashboard";
+import CalendarBoard from "./pages/CalendarBoard";
 import Prestadores from "./pages/Prestadores";
 import Procedimentos from "./pages/Procedimentos";
 
@@ -23,7 +23,7 @@ export default function App() {
         <div className="content">
           <Switch>
             <Route path="/" component={Home} exact />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/CalendarBoard" component={CalendarBoard} />
             <Route path="/clientes" component={Clientes} />
             <Route path="/prestadores" component={Prestadores} />
             <Route path="/centrosdecusto" component={CentrodeCusto} />

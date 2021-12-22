@@ -63,3 +63,16 @@ body {
   overflow-y: auto;
   align-items: center;
 }
+
+.calendarDataContent {
+    padding: 30px;
+    width: 80%;
+    height: 350px;
+    max-height: 350px;
+    overflow-y: scroll;
+}
+
+.calendarDataItem {
+  padding: 10px;
+  background-color: #e6e6e6;
+}

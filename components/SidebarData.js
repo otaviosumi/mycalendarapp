@@ -1,23 +1,23 @@
 import React from 'react'
-import HomeIcon from '@material-ui/icons/Home';
-import MailIcon from "@material-ui/icons/Mail";
-import AssessIcon from "@material-ui/icons/Assessment";
-import DashboardIcon from "@material-ui/icons/CalendarToday";
-import PeopleIcon from "@material-ui/icons/People";
-import CategoryIcon from "@material-ui/icons/Category";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
-import StoreIcon from "@material-ui/icons/Store";
+import HomeIcon from '@mui/icons-material/Home';
+import MailIcon from "@mui/icons-material/Mail";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import PeopleIcon from "@mui/icons-material/People";
+import CategoryIcon from "@mui/icons-material/Category";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import StoreIcon from "@mui/icons-material/Store";
 
 export const SidebarData = [
   {
     title: "Calendário",
-    icon: <DashboardIcon />,
-    link: "/dashboard",
+    icon: <CalendarTodayIcon />,
+    link: "/CalendarBoard",
   },
   {
     title: "Clientes",
-    icon: <AssessIcon />,
+    icon: <AssessmentIcon />,
     link: "/clientes",
   },
   {
