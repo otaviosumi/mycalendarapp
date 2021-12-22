@@ -1,28 +1,69 @@
-import React, { useState } from "react";
-import isWeekend from "date-fns/isWeekend";
+import { React, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import StaticDatePicker from "@mui/lab/StaticDatePicker";
-import Typography from "@mui/material/Typography";
-import FolderIcon from "@mui/icons-material/Folder";
-import DeleteIcon from "@mui/icons-material/Delete";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 
 import "../styles/myCalendar.css";
 
 import CalendarDataItem from "../components/calendar/CalendarDataItem";
-
-// https://www.npmjs.com/package/react-calendar
+import CalendarDataList from "../components/calendar/CalendarDataList";
+import NewCalendarEventForm from "../components/calendar/NewCalendarEventForm";
 
 function CalendarBoard() {
   const [value, setValue] = React.useState(new Date());
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedEvents, setLoadedEvents] = useState([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      "https://react-getting-started-edd51-default-rtdb.firebaseio.com/CalendarDataItems.json"
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const calendarEvents = [];
+
+        for (const key in data) {
+          const calendarEvent = {
+            id: key,
+            ...data[key],
+          };
+
+          calendarEvents.push(calendarEvent);
+        }
+
+        setIsLoading(false);
+        setLoadedEvents(calendarEvents);
+      });
+  }, []);
+
+  function addCalendarEventHandler(calendarEventData) {
+    fetch(
+      "https://react-getting-started-edd51-default-rtdb.firebaseio.com/CalendarDataItems.json",
+      {
+        method: "POST",
+        body: JSON.stringify(calendarEventData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(() => {
+      history.replace("/");
+    });
+  }
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    );
+  }
 
   return (
     <div className="content">
@@ -38,35 +79,13 @@ function CalendarBoard() {
         />
       </LocalizationProvider>
 
+      <div>
+        <h1>Add New Event</h1>
+        <NewCalendarEventForm onAddCalendarEvent={addCalendarEventHandler} />
+      </div>
+
       <div className="calendarDataContent">
-        <ListItem
-          secondaryAction={
-            <IconButton edge="end" aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          }
-        >
-          <ListItemAvatar>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Single-line item" secondary="Secondary text" />
-        </ListItem>
-        <ListItem
-          secondaryAction={
-            <IconButton edge="end" aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          }
-        >
-          <ListItemAvatar>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Single-line item" secondary="Secondary text" />
-        </ListItem>
+        <CalendarDataList calendarEvents={loadedEvents} />
       </div>
     </div>
   );
