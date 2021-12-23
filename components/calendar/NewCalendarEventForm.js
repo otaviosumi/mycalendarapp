@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef } from "react";
 
 import Card from "../ui/Card";
@@ -41,7 +42,7 @@ function NewCalendarEventForm(props) {
         </div>
         <div className={classes.control}>
           <label htmlFor="contac">Contato</label>
-          <input type="text" required id="contac" ref={enteredContac} />
+          <input type="text" required id="contac" ref={contacInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor="description">Descrição</label>

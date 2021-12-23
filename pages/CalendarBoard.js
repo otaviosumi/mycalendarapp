@@ -1,15 +1,14 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import StaticDatePicker from "@mui/lab/StaticDatePicker";
 
-import "../styles/myCalendar.css";
-
-import CalendarDataItem from "../components/calendar/CalendarDataItem";
-import CalendarDataList from "../components/calendar/CalendarDataList";
 import NewCalendarEventForm from "../components/calendar/NewCalendarEventForm";
+import CalendarDataList from "../components/calendar/CalendarDataList";
 
 function CalendarBoard() {
   const [value, setValue] = React.useState(new Date());
@@ -53,7 +52,7 @@ function CalendarBoard() {
         },
       }
     ).then(() => {
-      history.replace("/");
+      history.replace("/CalendarBoard");
     });
   }
 
@@ -64,9 +63,8 @@ function CalendarBoard() {
       </section>
     );
   }
-
   return (
-    <div className="content">
+    <div className="content-fill">
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <StaticDatePicker
           displayStaticWrapperAs="desktop"
@@ -79,7 +77,7 @@ function CalendarBoard() {
         />
       </LocalizationProvider>
 
-      <div>
+      <div className="content-fill">
         <h1>Add New Event</h1>
         <NewCalendarEventForm onAddCalendarEvent={addCalendarEventHandler} />
       </div>
